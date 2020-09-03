@@ -22,6 +22,8 @@ def cartoonize(image):
         # hist, _ = np.histogram(output[:, :, i], bins=np.arange(256+1))
         # hists.append(hist)
     edge = cv2.Canny(output, 100, 200)
+    # cv2.imshow("Edge.JPG", edge)
+    cv2.imwrite("Edge.JPG", edge)
 
     output = cv2.cvtColor(output, cv2.COLOR_RGB2HSV)
 
@@ -67,6 +69,7 @@ def update_C(C, hist):
         groups = defaultdict(list)
         #assign pixel values
         for i in range(len(hist)):
+            # no elem in that bin
             if hist[i] == 0:
                 continue
             d = np.abs(C-i)

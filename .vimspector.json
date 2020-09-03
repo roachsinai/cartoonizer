@@ -1,0 +1,23 @@
+{
+  "configurations": {
+    "Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "type": "python",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "stopOnEntry": true,
+        "externalConsole": false,
+        "console": "integratedTerminal",
+        "program": "${file}",
+        "args": ["imgs/input/Boat.JPG", "Boat_cartton.JPG"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "",
+          "uncaught": "Y"
+        }
+      }
+    }
+  }
+}
