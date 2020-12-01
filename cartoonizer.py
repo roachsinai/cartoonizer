@@ -77,9 +77,11 @@ def update_C(C, hist):
             groups[index].append(i)
 
         new_C = np.array(C)
+        # indice 表示属于聚类中心i的每个样本（像素点）的下标（个数）
         for i, indice in groups.items():
             if np.sum(hist[indice]) == 0:
                 continue
+            # hist[indice]为像素值
             new_C[i] = int(np.sum(indice*hist[indice])/np.sum(hist[indice]))
         if np.sum(new_C-C) == 0:
             break
@@ -92,8 +94,8 @@ def k_histogram(hist):
     choose the best K for k-means and get the centroids
     """
     alpha = 0.001              # p-value threshold for normaltest
-    N = 80                      # minimun group size for normaltest
-    C = np.array([128])
+    N = 80                     # minimun group size for normaltest
+    C = np.array([128])        # 起始随机聚类中心
 
     while True:
         C, groups = update_C(C, hist)
