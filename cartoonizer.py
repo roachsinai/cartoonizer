@@ -93,8 +93,8 @@ def k_histogram(hist):
     """
     choose the best K for k-means and get the centroids
     """
-    alpha = 0.001              # p-value threshold for normaltest
-    N = 80                      # minimun group size for normaltest
+    alpha = 0.001  # p-value threshold for normaltest
+    N = 80  # minimun group size for normaltest
     C = np.array([128])
 
     while True:
