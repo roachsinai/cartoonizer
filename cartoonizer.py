@@ -25,6 +25,8 @@ def cartoonize(image):
     # cv2.imshow("Edge.JPG", edge)
     cv2.imwrite("Edge.JPG", edge)
 
+    # 色调，饱和度，明度 Hue Saturation Value
+    # 转换成 HSV 空间，在聚类的时候有更明确的语义
     output = cv2.cvtColor(output, cv2.COLOR_RGB2HSV)
 
     hists = []
