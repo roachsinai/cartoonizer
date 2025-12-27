@@ -25,6 +25,8 @@ def cartoonize(image):
     # cv2.imshow("Edge.JPG", edge)
     cv2.imwrite("Edge.JPG", edge)
 
+    # 色调，饱和度，明度 Hue Saturation Value
+    # 转换成 HSV 空间，在聚类的时候有更明确的语义
     output = cv2.cvtColor(output, cv2.COLOR_RGB2HSV)
 
     hists = []
@@ -81,7 +83,8 @@ def update_C(C, hist):
         for i, indice in groups.items():
             if np.sum(hist[indice]) == 0:
                 continue
-            # hist[indice]为像素值
+            # 这里 hist[idx] 其实是 idx 对应的权重
+            # 比上 np.sum 是因为权重没有归一化
             new_C[i] = int(np.sum(indice*hist[indice])/np.sum(hist[indice]))
         if np.sum(new_C-C) == 0:
             break
@@ -113,10 +116,12 @@ def k_histogram(hist):
             # normal distribution
             z, pval = stats.normaltest(hist[indice])
             if pval < alpha:
-                #not a normal dist, seperate
+                # not a normal dist, seperate
+                # 将 C[i] 用 (C[i] + C[i - 1]) / 2 和 (C[i] + C[i + 1]) / 2 替代掉
                 left = 0 if i == 0 else C[i-1]
                 right = len(hist)-1 if i == len(C)-1 else C[i+1]
                 delta = right-left
+                # 当前 group 的 bin 个数大于等于 3
                 if delta >= 3:
                     c1 = (C[i]+left)/2
                     c2 = (C[i]+right)/2

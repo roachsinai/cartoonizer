@@ -3,11 +3,12 @@ from cartoonizer import cartoonize
 import cv2
 import os
 import time
+from pathlib import Path
 
 in_dir = './imgs/input'
 out_dir = './imgs/output'
 
-os.mkdir(out_dir)
+Path(out_dir).mkdir(parents=True, exist_ok=True)
 
 for f in os.listdir(in_dir):
     image = cv2.imread(os.path.join(in_dir, f))
